@@ -1,0 +1,19 @@
+[Unit]
+Description=Hutch MSISDN TLS Bridge
+After=network-online.target nginx.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hutchbridge
+Group=hutchbridge
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+EnvironmentFile=/etc/hutch-msisdn-bridge.env
+ExecStart=/opt/hutch-msisdn-bridge-go/hutch-bridge
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
